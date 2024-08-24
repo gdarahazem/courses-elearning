@@ -15,6 +15,22 @@
     <link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}">
     <link rel="stylesheet" href="{{ asset('css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <style>
+        .footer_1 a {
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-text {
+            margin-left: 10px; /* Adjust spacing between the logo and the text */
+            margin-bottom: 33px;
+
+            color: #fff; /* Adjust text color as needed */
+            font-size: 18px; /* Adjust text size as needed */
+            font-weight: bold; /* Makes text bold */
+        }
+
+    </style>
 </head>
 
 <body>
