@@ -47,6 +47,11 @@ class CoursesController extends Controller
             $course->addMedia(storage_path('tmp/uploads/' . $request->input('photo')))->toMediaCollection('photo');
         }
 
+        // Handle book PDF file
+        if ($request->input('book', false)) {
+            $course->addMedia(storage_path('tmp/uploads/' . $request->input('book')))->toMediaCollection('books');
+        }
+
         return redirect()->route('admin.courses.index');
     }
 
@@ -74,6 +79,14 @@ class CoursesController extends Controller
             }
         } elseif ($course->photo) {
             $course->photo->delete();
+        }
+
+        // Handle book PDF file
+        if ($request->input('book', false)) {
+            if ($course->getFirstMedia('books')) {
+                $course->getFirstMedia('books')->delete(); // Delete the old book
+            }
+            $course->addMedia(storage_path('tmp/uploads/' . $request->input('book')))->toMediaCollection('books');
         }
 
         return redirect()->route('admin.courses.index');

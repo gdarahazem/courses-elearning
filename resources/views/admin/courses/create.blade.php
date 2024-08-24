@@ -90,6 +90,21 @@
                         {{ $errors->first('disciplines') }}
                     </em>
                 @endif
+
+                <div class="form-group {{ $errors->has('book') ? 'has-error' : '' }}">
+                    <label for="book">{{ trans('cruds.course.fields.book') }}</label>
+                    <div class="needsclick dropzone" id="book-dropzone"></div>
+                    @if($errors->has('book'))
+                        <em class="invalid-feedback">
+                            {{ $errors->first('book') }}
+                        </em>
+                    @endif
+                    <p class="helper-block">
+                        {{ trans('cruds.course.fields.book_helper') }}
+                    </p>
+                </div>
+
+
                 <p class="helper-block">
                     {{ trans('cruds.course.fields.disciplines_helper') }}
                 </p>
@@ -159,4 +174,37 @@
     }
 }
 </script>
+
+<script>
+    Dropzone.options.bookDropzone = {
+        url: '{{ route('admin.courses.storeMedia') }}',
+        maxFilesize: 5, // Adjust as necessary
+        acceptedFiles: '.pdf',
+        addRemoveLinks: true,
+        headers: {
+            'X-CSRF-TOKEN': "{{ csrf_token() }}"
+        },
+        success: function (file, response) {
+            $('form').find('input[name="book"]').remove();
+            $('form').append('<input type="hidden" name="book" value="' + response.name + '">');
+        },
+        removedfile: function (file) {
+            file.previewElement.remove();
+            $('form').find('input[name="book"]').remove();
+            this.options.maxFiles = this.options.maxFiles + 1;
+        },
+        error: function (file, response) {
+            var message = response.errors.file;
+            file.previewElement.classList.add('dz-error');
+            var _ref = file.previewElement.querySelectorAll('[data-dz-errormessage]');
+            var _results = [];
+            for (var _i = 0, _len = _ref.length; _i < _len; _i++) {
+                var node = _ref[_i];
+                _results.push(node.textContent = message);
+            }
+            return _results;
+        }
+    };
+</script>
+
 @stop
