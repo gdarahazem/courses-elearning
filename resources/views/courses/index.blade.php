@@ -14,7 +14,7 @@
             @foreach($courses as $course)
                 <div class="col-sm-6 col-lg-4 mb-3">
                     <div class="single_special_cource">
-                        <img src="{{ optional($course->photo)->getUrl() ?? asset('img/no_image.png') }}" class="special_img" alt="">
+                        <img src="{{ optional($course->photo)->getUrl() ?? asset('img/no_image.png') }}" class="special_img" alt="" style="width:365px; height:360px">
                         <div class="special_cource_text">
                             @foreach($course->disciplines as $discipline)
                                 <a href="{{ route('courses.index') }}?discipline={{ $discipline->id }}" class="btn_4 mr-1 mb-1">{{ $discipline->name }}</a>

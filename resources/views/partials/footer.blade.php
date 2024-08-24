@@ -3,7 +3,7 @@
         <div class="row justify-content-between">
             <div class="col-sm-6 col-md-4 col-xl-3">
                 <div class="single-footer-widget footer_1">
-                    <a href="index.html">
+                    <a href="{{route("home")}}">
                         <img src="{{ asset('img/single_page_logo.png') }}" alt="">
                         <span class="footer-text text-dark">e-learning</span>
                     </a>
