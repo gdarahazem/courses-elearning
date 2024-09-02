@@ -92,7 +92,7 @@
                 @endif
 
                 <div class="form-group {{ $errors->has('book') ? 'has-error' : '' }}">
-                    <label for="book">{{ trans('cruds.course.fields.book') }}</label>
+                    <label for="book">Course</label>
                     <div class="needsclick dropzone" id="book-dropzone"></div>
                     @if($errors->has('book'))
                         <em class="invalid-feedback">
@@ -100,7 +100,7 @@
                         </em>
                     @endif
                     <p class="helper-block">
-                        {{ trans('cruds.course.fields.book_helper') }}
+
                     </p>
                 </div>
 

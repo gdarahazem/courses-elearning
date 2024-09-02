@@ -13,7 +13,7 @@
             </div>
             <div class="row">
                 @foreach($newestCourses as $course)
-                    <div class="col-sm-6 col-lg-4">
+                    <div class="col-sm-6 col-lg-4" >
                         <div class="single_special_cource">
                             <img src="{{ optional($course->photo)->getUrl() ?? asset('img/no_image.png') }}"
                                  class="special_img" alt="" width="365px" height="360px">

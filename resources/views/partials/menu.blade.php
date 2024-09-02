@@ -58,7 +58,7 @@
                         <i class="fa-fw fas fa-book-open nav-icon">
 
                         </i>
-                        {{ trans('cruds.discipline.title') }}
+                        Catégories
                     </a>
                 </li>
             @endcan

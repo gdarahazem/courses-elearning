@@ -5,7 +5,7 @@
                 <nav class="navbar navbar-expand-lg navbar-light">
                     <a class="navbar-brand logo_1" href="{{ route('home') }}"> <img
                             src="{{ asset('img/single_page_logo.png') }}" alt="logo">
-                        <span class="navbar-text text-white">e-learning</span> <!-- Add this line -->
+                        <span class="navbar-text text-white">LasalleLearn</span> <!-- Add this line -->
                     </a>
                     <a class="navbar-brand logo_2" href="{{ route('home') }}"> <img
                             src="{{ asset('img/single_page_logo.png') }}" alt="logo">
@@ -30,7 +30,7 @@
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Disciplines
+                                        Categories
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         @foreach($menuDisciplines as $id=>$discipline)

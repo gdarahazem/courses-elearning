@@ -5,7 +5,7 @@
                 <div class="single-footer-widget footer_1">
                     <a href="{{route("home")}}">
                         <img src="{{ asset('img/single_page_logo.png') }}" alt="">
-                        <span class="footer-text text-dark">e-learning</span>
+                        <span class="footer-text text-dark">LasalleLearn</span>
                     </a>
                     <p>But when shot real her. Chamber her one visite removal six
                         sending himself boys scot exquisite existend an </p>

@@ -76,7 +76,7 @@ class Course extends Model implements HasMedia
 
     public function getPrice()
     {
-        return $this->price ? '$'.number_format($this->price, 2) : 'FREE';
+        return $this->price ? number_format($this->price, 2).' TND' : 'FREE';
     }
 
     public function scopeSearchResults($query)
