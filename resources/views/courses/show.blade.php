@@ -20,14 +20,6 @@
                 <div class="col-lg-4 right-contents">
                     <div class="sidebar_top">
                         <ul>
-{{--                            @if($course->institution)--}}
-{{--                                <li>--}}
-{{--                                    <a class="justify-content-between d-flex">--}}
-{{--                                        <p>Institution</p>--}}
-{{--                                        <span class="color">{{ $course->institution->name }}</span>--}}
-{{--                                    </a>--}}
-{{--                                </li>--}}
-{{--                            @endif--}}
                             <li>
                                 <a class="justify-content-between d-flex">
                                     <p>Course Fee </p>
@@ -40,12 +32,19 @@
                                 </li>
                             @endif
                         </ul>
+
                         @if($enrollmentStatus === 'accepted' && $bookUrl)
                             <a href="{{ $bookUrl }}" class="btn_1 d-block" download>Download Book</a>
                             <a href="{{ $bookUrl }}" target="_blank" class="btn_1 d-block">Read Online</a>
                         @elseif(!$enrollmentStatus)
                             <a href="{{ route('enroll.create', $course->id) }}" class="btn_1 d-block">Enroll in the Course</a>
                         @endif
+
+                        {{-- Display Pass the Exam button if the user is authenticated and the course has a quiz --}}
+                        @if(auth()->check() && $hasQuiz)
+                            <a href="{{ route('quizzes.start', ['course' => $course->id]) }}" class="btn_1 d-block">Pass the Exam</a>
+                        @endif
+
                     </div>
                 </div>
             </div>

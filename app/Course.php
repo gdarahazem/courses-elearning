@@ -92,4 +92,9 @@ class Course extends Model implements HasMedia
                 });
             });
     }
+
+    public function quizzes()
+    {
+        return $this->hasMany(Quiz::class);
+    }
 }

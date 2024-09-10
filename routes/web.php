@@ -1,5 +1,7 @@
 <?php
 
+
+
 Route::get('/home', function () {
     if (session('status')) {
         return redirect()->route('admin.home')->with('status', session('status'));
@@ -16,6 +18,14 @@ Route::get('enroll/{course}', 'EnrollmentController@create')->name('enroll.creat
 Route::post('enroll/{course}', 'EnrollmentController@store')->name('enroll.store');
 Route::get('my-courses', 'EnrollmentController@myCourses')->name('enroll.myCourses')->middleware('auth');
 Route::resource('courses', 'CourseController')->only(['index', 'show']);
+
+// Route to start the quiz
+Route::get('/quizzes/start/{course}', 'QuizController@start')->name('quizzes.start');
+
+Route::post('/quizzes/submit/{quiz}', 'QuizController@submit')->name('quizzes.submit');
+Route::get('/quizzes/{quiz}/result/{submission}', 'QuizController@showResult')->name('quizzes.result');
+
+
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::get('/', 'HomeController@index')->name('home');
@@ -40,6 +50,17 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('institutions/media', 'InstitutionsController@storeMedia')->name('institutions.storeMedia');
     Route::resource('institutions', 'InstitutionsController');
 
+    Route::resource('quizzes', QuizController::class);
+    Route::resource('questions', QuestionsController::class);
+    Route::delete('questions/destroy', 'QuestionController@massDestroy')->name('admin.questions.massDestroy');
+
+    Route::resource('answers', AnswersController::class);
+    Route::delete('answers/destroy', 'AnswerController@massDestroy')->name('admin.answers.massDestroy');
+
+    Route::resource('submissions', SubmissionController::class);
+
+    Route::resource('questions', 'QuestionController');
+    Route::resource('answers', 'AnswerController');
     // Courses
     Route::delete('courses/destroy', 'CoursesController@massDestroy')->name('courses.massDestroy');
     Route::post('courses/media', 'CoursesController@storeMedia')->name('courses.storeMedia');
@@ -48,4 +69,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Enrollments
     Route::delete('enrollments/destroy', 'EnrollmentsController@massDestroy')->name('enrollments.massDestroy');
     Route::resource('enrollments', 'EnrollmentsController');
+
+
+
+
 });
