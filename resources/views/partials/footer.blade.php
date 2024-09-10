@@ -7,9 +7,9 @@
                         <img src="{{ asset('img/single_page_logo.png') }}" alt="">
                         <span class="footer-text text-dark">LasalleLearn</span>
                     </a>
-                    <p>But when shot real her. Chamber her one visite removal six
-                        sending himself boys scot exquisite existend an </p>
-                    <p>But when shot real her hamber her </p>
+                    <p>Studying at Collège LaSalle Tunis means living a unique educational experience that prepares you for a successful professional career. Join LaSalle College!
+                    </p>
+
                 </div>
             </div>
             <div class="col-sm-6 col-md-4 col-xl-4">
@@ -41,33 +41,33 @@
                 <div class="single-footer-widget footer_2">
                     <h4>Contact us</h4>
                     <div class="contact_info">
-                        <p><span> Address :</span> Hath of it fly signs bear be one blessed after </p>
-                        <p><span> Phone :</span> +2 36 265 (8060)</p>
-                        <p><span> Email : </span>info@colorlib.com </p>
+                        <p><span> Address :</span> 11 Av. Kheireddine Pacha, Tunis 1002 </p>
+                        <p><span> Phone :</span> +216 29 775 420</p>
+                        <p><span> Email : </span>lasalle@gmail.com </p>
                     </div>
                 </div>
             </div>
         </div>
 
     </div>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="copyright_part_text text-center">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <p class="footer-text m-0">
-                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                                All rights reserved | This template is made with <i class="ti-heart"
-                                                                                    aria-hidden="true"></i> by <a
-                                    href="https://colorlib.com" target="_blank">Colorlib</a>
-                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+{{--    <div class="container-fluid">--}}
+{{--        <div class="row">--}}
+{{--            <div class="col-lg-12">--}}
+{{--                <div class="copyright_part_text text-center">--}}
+{{--                    <div class="row">--}}
+{{--                        <div class="col-lg-12">--}}
+{{--                            <p class="footer-text m-0">--}}
+{{--                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->--}}
+{{--                                Copyright &copy;<script>document.write(new Date().getFullYear());</script>--}}
+{{--                                All rights reserved | This template is made with <i class="ti-heart"--}}
+{{--                                                                                    aria-hidden="true"></i> by <a--}}
+{{--                                    href="https://colorlib.com" target="_blank">Colorlib</a>--}}
+{{--                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->--}}
+{{--                            </p>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
 </footer>

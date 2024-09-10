@@ -22,6 +22,8 @@ class Enrollment extends Model
         'status',
         'user_id',
         'course_id',
+        'card_number',
+        'payment_reference',
         'created_at',
         'updated_at',
         'deleted_at',

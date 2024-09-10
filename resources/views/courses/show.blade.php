@@ -20,14 +20,14 @@
                 <div class="col-lg-4 right-contents">
                     <div class="sidebar_top">
                         <ul>
-                            @if($course->institution)
-                                <li>
-                                    <a class="justify-content-between d-flex">
-                                        <p>Institution</p>
-                                        <span class="color">{{ $course->institution->name }}</span>
-                                    </a>
-                                </li>
-                            @endif
+{{--                            @if($course->institution)--}}
+{{--                                <li>--}}
+{{--                                    <a class="justify-content-between d-flex">--}}
+{{--                                        <p>Institution</p>--}}
+{{--                                        <span class="color">{{ $course->institution->name }}</span>--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
+{{--                            @endif--}}
                             <li>
                                 <a class="justify-content-between d-flex">
                                     <p>Course Fee </p>

@@ -51,24 +51,24 @@
                         {{ trans('cruds.course.fields.photo_helper') }}
                     </p>
                 </div>
-                @if(auth()->user()->isInstitution())
-                    <input type="hidden" name="institution_id" value="{{ auth()->user()->institution_id }}">
-                @else
-                    <div class="form-group {{ $errors->has('institution_id') ? 'has-error' : '' }}">
-                        <label for="institution">{{ trans('cruds.course.fields.institution') }}*</label>
-                        <select name="institution_id" id="institution" class="form-control select2" required>
-                            @foreach($institutions as $id => $institution)
-                                <option
-                                    value="{{ $id }}" {{ (isset($course) && $course->institution ? $course->institution->id : old('institution_id')) == $id ? 'selected' : '' }}>{{ $institution }}</option>
-                            @endforeach
-                        </select>
-                        @if($errors->has('institution_id'))
-                            <em class="invalid-feedback">
-                                {{ $errors->first('institution_id') }}
-                            </em>
-                        @endif
-                    </div>
-                @endif
+{{--                @if(auth()->user()->isInstitution())--}}
+{{--                    <input type="hidden" name="institution_id" value="{{ auth()->user()->institution_id }}">--}}
+{{--                @else--}}
+{{--                    <div class="form-group {{ $errors->has('institution_id') ? 'has-error' : '' }}">--}}
+{{--                        <label for="institution">{{ trans('cruds.course.fields.institution') }}*</label>--}}
+{{--                        <select name="institution_id" id="institution" class="form-control select2" required>--}}
+{{--                            @foreach($institutions as $id => $institution)--}}
+{{--                                <option--}}
+{{--                                    value="{{ $id }}" {{ (isset($course) && $course->institution ? $course->institution->id : old('institution_id')) == $id ? 'selected' : '' }}>{{ $institution }}</option>--}}
+{{--                            @endforeach--}}
+{{--                        </select>--}}
+{{--                        @if($errors->has('institution_id'))--}}
+{{--                            <em class="invalid-feedback">--}}
+{{--                                {{ $errors->first('institution_id') }}--}}
+{{--                            </em>--}}
+{{--                        @endif--}}
+{{--                    </div>--}}
+{{--                @endif--}}
                 <div class="form-group {{ $errors->has('price') ? 'has-error' : '' }}">
                     <label for="price">{{ trans('cruds.course.fields.price') }}</label>
                     <input type="number" id="price" name="price" class="form-control"
@@ -107,7 +107,7 @@
                             </em>
                         @endif
                         <p class="helper-block">
-                            
+
                         </p>
                     </div>
 

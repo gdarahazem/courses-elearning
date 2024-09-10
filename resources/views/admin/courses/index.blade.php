@@ -34,9 +34,9 @@
                         <th>
                             {{ trans('cruds.course.fields.photo') }}
                         </th>
-                        <th>
-                            {{ trans('cruds.course.fields.institution') }}
-                        </th>
+{{--                        <th>--}}
+{{--                            {{ trans('cruds.course.fields.institution') }}--}}
+{{--                        </th>--}}
                         <th>
                             {{ trans('cruds.course.fields.price') }}
                         </th>
@@ -70,9 +70,9 @@
                                     </a>
                                 @endif
                             </td>
-                            <td>
-                                {{ $course->institution->name ?? '' }}
-                            </td>
+{{--                            <td>--}}
+{{--                                {{ $course->institution->name ?? '' }}--}}
+{{--                            </td>--}}
                             <td>
                                 {{ $course->price ?? '' }}
                             </td>

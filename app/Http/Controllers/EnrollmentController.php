@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Course;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class EnrollmentController extends Controller
 {
@@ -18,13 +20,16 @@ class EnrollmentController extends Controller
 
     public function store(Request $request, Course $course)
     {
-        if(auth()->guest()) {
+//        dd($request->all());
+        // Validate user info if they are a guest
+        if (auth()->guest()) {
             $request->validate([
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => 'required|string|min:8|confirmed',
             ]);
 
+            // Create a new user
             $user = User::create([
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
@@ -41,7 +46,28 @@ class EnrollmentController extends Controller
             return redirect()->back()->with('error', 'You are already enrolled in this course.');
         }
 
-        $course->enrollments()->create(['user_id' => $user_id]);
+        // Check if the course has a price (not free)
+        if ($course->price !== null && $course->price > 0) {
+            // Validate payment details
+            $request->validate([
+                'card_number' => 'required|digits:16',
+            ]);
+
+            $payment_reference = 'PAY-' . strtoupper(Str::random(10));
+
+            $course->enrollments()->create([
+                'user_id' => $user_id,
+                'status' => 'awaiting',
+                'payment_reference' => $payment_reference,
+                'card_number' => $request->card_number,
+            ]);
+        } else {
+
+            $course->enrollments()->create([
+                'user_id' => $user_id,
+                'status' => 'awaiting',
+            ]);
+        }
 
         return redirect()->route('enroll.myCourses')->with('success', 'You have been successfully enrolled in the course.');
     }

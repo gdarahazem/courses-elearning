@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 02 sep. 2024 à 18:19
--- Version du serveur : 8.2.0
--- Version de PHP : 7.4.33
+-- Généré le : mar. 10 sep. 2024 à 15:27
+-- Version du serveur : 5.7.31
+-- Version de PHP : 8.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,19 +29,19 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `courses`;
 CREATE TABLE IF NOT EXISTS `courses` (
-                                         `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-                                         `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+                                         `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
     `description` longtext COLLATE utf8mb4_unicode_ci,
     `price` decimal(15,2) DEFAULT NULL,
     `book` text COLLATE utf8mb4_unicode_ci,
     `created_at` timestamp NULL DEFAULT NULL,
     `updated_at` timestamp NULL DEFAULT NULL,
     `deleted_at` timestamp NULL DEFAULT NULL,
-    `institution_id` int UNSIGNED NOT NULL,
+    `institution_id` int(10) UNSIGNED DEFAULT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `courses_name_unique` (`name`),
     KEY `institution_fk_538844` (`institution_id`)
-    ) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    ) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `courses`
@@ -50,11 +50,12 @@ CREATE TABLE IF NOT EXISTS `courses` (
 INSERT INTO `courses` (`id`, `name`, `description`, `price`, `book`, `created_at`, `updated_at`, `deleted_at`, `institution_id`) VALUES
                                                                                                                                      (1, 'Web Development', 'Autem et debitis autem quas eveniet tenetur eum. Laudantium qui repudiandae molestiae et. Vel officiis et voluptas fugit quis omnis architecto.', NULL, NULL, '2024-08-23 22:14:40', '2024-08-28 22:22:51', '2024-08-28 22:22:51', 1),
                                                                                                                                      (2, 'UX/UI Design', NULL, NULL, NULL, '2024-08-23 22:14:40', '2024-08-28 15:19:40', NULL, 2),
-                                                                                                                                     (3, 'Wordpress Development', 'WordPress is a powerful content management system.', NULL, NULL, '2024-08-23 22:14:41', '2024-08-28 16:51:37', NULL, 3),
+                                                                                                                                     (3, 'Wordpress Development', 'WordPress is a powerful content management system.', '120.00', NULL, '2024-08-23 22:14:41', '2024-09-10 07:43:57', NULL, 3),
                                                                                                                                      (4, 'test', 'test', NULL, NULL, '2024-08-23 22:32:46', '2024-08-28 15:08:15', '2024-08-28 15:08:15', 3),
                                                                                                                                      (5, 'tttt2', 'ffffff', NULL, NULL, '2024-08-23 23:13:34', '2024-08-28 15:08:15', '2024-08-28 15:08:15', 1),
                                                                                                                                      (6, 'aaaaa', 'aaaaa', NULL, NULL, '2024-08-24 11:26:33', '2024-08-28 15:08:15', '2024-08-28 15:08:15', 1),
-                                                                                                                                     (7, 'firebase', 'tes tes tsqdqsdqsd', NULL, NULL, '2024-08-28 16:54:37', '2024-08-28 16:54:37', NULL, 1);
+                                                                                                                                     (7, 'firebase', 'tes tes tsqdqsdqsd', NULL, NULL, '2024-08-28 16:54:37', '2024-08-28 16:54:37', NULL, 1),
+                                                                                                                                     (8, 'testssss', 'test', '1.00', NULL, '2024-09-10 14:17:15', '2024-09-10 14:17:15', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -64,9 +65,9 @@ INSERT INTO `courses` (`id`, `name`, `description`, `price`, `book`, `created_at
 
 DROP TABLE IF EXISTS `course_discipline`;
 CREATE TABLE IF NOT EXISTS `course_discipline` (
-                                                   `course_id` int UNSIGNED NOT NULL,
-                                                   `discipline_id` int UNSIGNED NOT NULL,
-                                                   KEY `course_id_fk_538846` (`course_id`),
+                                                   `course_id` int(10) UNSIGNED NOT NULL,
+    `discipline_id` int(10) UNSIGNED NOT NULL,
+    KEY `course_id_fk_538846` (`course_id`),
     KEY `discipline_id_fk_538846` (`discipline_id`)
     ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -81,7 +82,10 @@ INSERT INTO `course_discipline` (`course_id`, `discipline_id`) VALUES
                                                                    (4, 2),
                                                                    (5, 1),
                                                                    (6, 3),
-                                                                   (7, 2);
+                                                                   (7, 2),
+                                                                   (8, 1),
+                                                                   (8, 2),
+                                                                   (8, 3);
 
 -- --------------------------------------------------------
 
@@ -91,8 +95,8 @@ INSERT INTO `course_discipline` (`course_id`, `discipline_id`) VALUES
 
 DROP TABLE IF EXISTS `disciplines`;
 CREATE TABLE IF NOT EXISTS `disciplines` (
-                                             `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-                                             `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+                                             `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
     `created_at` timestamp NULL DEFAULT NULL,
     `updated_at` timestamp NULL DEFAULT NULL,
     `deleted_at` timestamp NULL DEFAULT NULL,
@@ -117,37 +121,28 @@ INSERT INTO `disciplines` (`id`, `name`, `created_at`, `updated_at`, `deleted_at
 
 DROP TABLE IF EXISTS `enrollments`;
 CREATE TABLE IF NOT EXISTS `enrollments` (
-                                             `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-                                             `status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'awaiting',
+                                             `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'awaiting',
     `created_at` timestamp NULL DEFAULT NULL,
     `updated_at` timestamp NULL DEFAULT NULL,
     `deleted_at` timestamp NULL DEFAULT NULL,
-    `user_id` int UNSIGNED NOT NULL,
-    `course_id` int UNSIGNED NOT NULL,
+    `user_id` int(10) UNSIGNED NOT NULL,
+    `card_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `payment_reference` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `course_id` int(10) UNSIGNED NOT NULL,
     PRIMARY KEY (`id`),
     KEY `user_fk_538851` (`user_id`),
     KEY `course_fk_538852` (`course_id`)
-    ) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    ) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `enrollments`
 --
 
-INSERT INTO `enrollments` (`id`, `status`, `created_at`, `updated_at`, `deleted_at`, `user_id`, `course_id`) VALUES
-                                                                                                                 (1, 'rejected', '2024-08-23 22:14:41', '2024-08-23 22:14:41', NULL, 1, 1),
-                                                                                                                 (2, 'rejected', '2024-08-23 22:14:41', '2024-08-23 22:14:41', NULL, 1, 2),
-                                                                                                                 (3, 'accepted', '2024-08-23 22:14:41', '2024-08-23 22:14:41', NULL, 1, 3),
-                                                                                                                 (4, 'awaiting', '2024-08-23 22:25:20', '2024-08-23 22:25:20', NULL, 1, 1),
-                                                                                                                 (5, 'accepted', '2024-08-23 22:55:53', '2024-08-24 09:38:50', '2024-08-24 09:38:50', 3, 2),
-                                                                                                                 (6, 'awaiting', '2024-08-23 23:01:04', '2024-08-24 09:38:50', '2024-08-24 09:38:50', 3, 2),
-                                                                                                                 (7, 'awaiting', '2024-08-24 09:38:21', '2024-08-24 09:38:50', '2024-08-24 09:38:50', 3, 1),
-                                                                                                                 (8, 'awaiting', '2024-08-24 09:44:12', '2024-08-24 09:44:12', NULL, 3, 3),
-                                                                                                                 (9, 'awaiting', '2024-08-24 09:53:52', '2024-08-24 09:54:15', '2024-08-24 09:54:15', 3, 3),
-                                                                                                                 (10, 'awaiting', '2024-08-24 09:57:34', '2024-08-24 09:57:34', NULL, 3, 4),
-                                                                                                                 (11, 'accepted', '2024-08-24 11:58:46', '2024-08-24 12:09:15', NULL, 3, 6),
-                                                                                                                 (12, 'accepted', '2024-08-28 16:47:21', '2024-08-28 16:49:37', NULL, 4, 3),
-                                                                                                                 (13, 'accepted', '2024-08-28 16:55:09', '2024-08-28 16:55:18', NULL, 4, 7),
-                                                                                                                 (14, 'accepted', '2024-08-28 17:03:52', '2024-08-28 17:04:00', NULL, 5, 7);
+INSERT INTO `enrollments` (`id`, `status`, `created_at`, `updated_at`, `deleted_at`, `user_id`, `card_number`, `payment_reference`, `course_id`) VALUES
+                                                                                                                                                     (19, 'awaiting', '2024-09-10 08:57:23', '2024-09-10 08:57:23', NULL, 4, '1111555588889999', 'PAY-A9QOTLGXMV', 3),
+                                                                                                                                                     (20, 'awaiting', '2024-09-10 12:47:41', '2024-09-10 12:47:41', NULL, 6, NULL, NULL, 2),
+                                                                                                                                                     (21, 'awaiting', '2024-09-10 12:48:09', '2024-09-10 12:48:09', NULL, 6, '1234456978741254', 'PAY-TSZYPIQZIR', 3);
 
 -- --------------------------------------------------------
 
@@ -157,8 +152,8 @@ INSERT INTO `enrollments` (`id`, `status`, `created_at`, `updated_at`, `deleted_
 
 DROP TABLE IF EXISTS `institutions`;
 CREATE TABLE IF NOT EXISTS `institutions` (
-                                              `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-                                              `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+                                              `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
     `description` longtext COLLATE utf8mb4_unicode_ci,
     `created_at` timestamp NULL DEFAULT NULL,
     `updated_at` timestamp NULL DEFAULT NULL,
@@ -184,9 +179,9 @@ INSERT INTO `institutions` (`id`, `name`, `description`, `created_at`, `updated_
 
 DROP TABLE IF EXISTS `media`;
 CREATE TABLE IF NOT EXISTS `media` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `model_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `model_id` bigint UNSIGNED NOT NULL,
+  `model_id` bigint(20) UNSIGNED NOT NULL,
   `uuid` char(36) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `collection_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -194,11 +189,11 @@ CREATE TABLE IF NOT EXISTS `media` (
   `mime_type` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `disk` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `conversions_disk` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `size` bigint UNSIGNED NOT NULL,
+  `size` bigint(20) UNSIGNED NOT NULL,
   `manipulations` json NOT NULL,
   `custom_properties` json NOT NULL,
   `responsive_images` json NOT NULL,
-  `order_column` int UNSIGNED DEFAULT NULL,
+  `order_column` int(10) UNSIGNED DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -218,7 +213,6 @@ INSERT INTO `media` (`id`, `model_type`, `model_id`, `uuid`, `collection_name`, 
                                                                                                         (6, 'App\\Course', 3, '64376969-f228-4607-acb4-8001e7fd48d2', 'photo', 'course_3', 'course_3.png', 'image/png', 'public', 'public', 218909, '[]', '{\"generated_conversions\": {\"thumb\": true}}', '[]', 6, '2024-08-23 22:14:41', '2024-08-23 22:14:41'),
                                                                                                         (7, 'App\\Course', 4, '8d4467b5-0986-4ff0-92e3-ba60f33cb1d8', 'photo', '66c91bdee8206_1', '66c91bdee8206_1.jpg', 'image/jpeg', 'public', 'public', 52962, '[]', '{\"generated_conversions\": {\"thumb\": true}}', '[]', 7, '2024-08-23 22:32:46', '2024-08-23 22:32:46'),
                                                                                                         (8, 'App\\Course', 5, '55ab4260-7acc-4bab-8a56-220b616b2a32', 'photo', '66c9259611998_1', '66c9259611998_1.jpg', 'image/jpeg', 'public', 'public', 52962, '[]', '{\"generated_conversions\": {\"thumb\": true}}', '[]', 8, '2024-08-23 23:13:35', '2024-08-23 23:13:37'),
-                                                                                                        (19, 'App\\Course', 7, 'f2e3caaa-53c2-4db4-ab56-5f661cb67f79', 'books', '66cf65d248e56_books', '66cf65d248e56_books.pdf', 'application/pdf', 'public', 'public', 708933, '[]', '[]', '[]', 19, '2024-08-28 17:00:52', '2024-08-28 17:00:52'),
                                                                                                         (10, 'App\\Institution', 3, '9d6edbf0-86db-4cd7-9d9e-4159afa9c2f7', 'logo', '66c9b8c8238b2_150px-Collège_La_Salle', '66c9b8c8238b2_150px-Collège_La_Salle.png', 'image/png', 'public', 'public', 400068, '[]', '{\"generated_conversions\": {\"thumb\": true}}', '[]', 10, '2024-08-24 09:41:13', '2024-08-24 09:41:15'),
                                                                                                         (11, 'App\\Institution', 2, '60b7d9e3-5e2a-482c-9881-9d338f4d69e5', 'logo', '66c9b8f9c6b74_esprit', '66c9b8f9c6b74_esprit.png', 'image/png', 'public', 'public', 4022, '[]', '{\"generated_conversions\": {\"thumb\": true}}', '[]', 11, '2024-08-24 09:42:02', '2024-08-24 09:42:03'),
                                                                                                         (12, 'App\\Course', 6, '3d943c63-4776-4df2-b288-c7e8537309f6', 'photo', '66c9d169a6c8c_Physical architecture', '66c9d169a6c8c_Physical-architecture.png', 'image/png', 'public', 'public', 175355, '[]', '{\"generated_conversions\": {\"thumb\": true}}', '[]', 12, '2024-08-24 11:26:33', '2024-08-24 11:26:33'),
@@ -236,9 +230,9 @@ INSERT INTO `media` (`id`, `model_type`, `model_id`, `uuid`, `collection_name`, 
 
 DROP TABLE IF EXISTS `migrations`;
 CREATE TABLE IF NOT EXISTS `migrations` (
-                                            `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-                                            `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-    `batch` int NOT NULL,
+                                            `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+    `batch` int(11) NOT NULL,
     PRIMARY KEY (`id`)
     ) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -277,8 +271,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 DROP TABLE IF EXISTS `oauth_access_tokens`;
 CREATE TABLE IF NOT EXISTS `oauth_access_tokens` (
                                                      `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-    `user_id` bigint UNSIGNED DEFAULT NULL,
-    `client_id` bigint UNSIGNED NOT NULL,
+    `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+    `client_id` bigint(20) UNSIGNED NOT NULL,
     `name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
     `scopes` text COLLATE utf8mb4_unicode_ci,
     `revoked` tinyint(1) NOT NULL,
@@ -298,8 +292,8 @@ CREATE TABLE IF NOT EXISTS `oauth_access_tokens` (
 DROP TABLE IF EXISTS `oauth_auth_codes`;
 CREATE TABLE IF NOT EXISTS `oauth_auth_codes` (
                                                   `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-    `user_id` bigint UNSIGNED NOT NULL,
-    `client_id` bigint UNSIGNED NOT NULL,
+    `user_id` bigint(20) UNSIGNED NOT NULL,
+    `client_id` bigint(20) UNSIGNED NOT NULL,
     `scopes` text COLLATE utf8mb4_unicode_ci,
     `revoked` tinyint(1) NOT NULL,
     `expires_at` datetime DEFAULT NULL,
@@ -315,9 +309,9 @@ CREATE TABLE IF NOT EXISTS `oauth_auth_codes` (
 
 DROP TABLE IF EXISTS `oauth_clients`;
 CREATE TABLE IF NOT EXISTS `oauth_clients` (
-                                               `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-                                               `user_id` bigint UNSIGNED DEFAULT NULL,
-                                               `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+                                               `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+    `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
     `secret` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
     `provider` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
     `redirect` text COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -338,11 +332,11 @@ CREATE TABLE IF NOT EXISTS `oauth_clients` (
 
 DROP TABLE IF EXISTS `oauth_personal_access_clients`;
 CREATE TABLE IF NOT EXISTS `oauth_personal_access_clients` (
-                                                               `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-                                                               `client_id` bigint UNSIGNED NOT NULL,
-                                                               `created_at` timestamp NULL DEFAULT NULL,
-                                                               `updated_at` timestamp NULL DEFAULT NULL,
-                                                               PRIMARY KEY (`id`)
+                                                               `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `client_id` bigint(20) UNSIGNED NOT NULL,
+    `created_at` timestamp NULL DEFAULT NULL,
+    `updated_at` timestamp NULL DEFAULT NULL,
+    PRIMARY KEY (`id`)
     ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -383,8 +377,8 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
 
 DROP TABLE IF EXISTS `permissions`;
 CREATE TABLE IF NOT EXISTS `permissions` (
-                                             `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-                                             `title` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                                             `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `title` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
     `created_at` timestamp NULL DEFAULT NULL,
     `updated_at` timestamp NULL DEFAULT NULL,
     `deleted_at` timestamp NULL DEFAULT NULL,
@@ -441,9 +435,9 @@ INSERT INTO `permissions` (`id`, `title`, `created_at`, `updated_at`, `deleted_a
 
 DROP TABLE IF EXISTS `permission_role`;
 CREATE TABLE IF NOT EXISTS `permission_role` (
-                                                 `role_id` int UNSIGNED NOT NULL,
-                                                 `permission_id` int UNSIGNED NOT NULL,
-                                                 KEY `role_id_fk_538787` (`role_id`),
+                                                 `role_id` int(10) UNSIGNED NOT NULL,
+    `permission_id` int(10) UNSIGNED NOT NULL,
+    KEY `role_id_fk_538787` (`role_id`),
     KEY `permission_id_fk_538787` (`permission_id`)
     ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -508,8 +502,8 @@ INSERT INTO `permission_role` (`role_id`, `permission_id`) VALUES
 
 DROP TABLE IF EXISTS `roles`;
 CREATE TABLE IF NOT EXISTS `roles` (
-                                       `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-                                       `title` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                                       `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `title` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
     `created_at` timestamp NULL DEFAULT NULL,
     `updated_at` timestamp NULL DEFAULT NULL,
     `deleted_at` timestamp NULL DEFAULT NULL,
@@ -533,9 +527,9 @@ INSERT INTO `roles` (`id`, `title`, `created_at`, `updated_at`, `deleted_at`) VA
 
 DROP TABLE IF EXISTS `role_user`;
 CREATE TABLE IF NOT EXISTS `role_user` (
-                                           `user_id` int UNSIGNED NOT NULL,
-                                           `role_id` int UNSIGNED NOT NULL,
-                                           KEY `user_id_fk_538796` (`user_id`),
+                                           `user_id` int(10) UNSIGNED NOT NULL,
+    `role_id` int(10) UNSIGNED NOT NULL,
+    KEY `user_id_fk_538796` (`user_id`),
     KEY `role_id_fk_538796` (`role_id`)
     ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -556,8 +550,8 @@ INSERT INTO `role_user` (`user_id`, `role_id`) VALUES
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
-                                       `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-                                       `name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                                       `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
     `email` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
     `email_verified_at` datetime DEFAULT NULL,
     `password` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -565,11 +559,11 @@ CREATE TABLE IF NOT EXISTS `users` (
     `created_at` timestamp NULL DEFAULT NULL,
     `updated_at` timestamp NULL DEFAULT NULL,
     `deleted_at` timestamp NULL DEFAULT NULL,
-    `institution_id` int UNSIGNED DEFAULT NULL,
+    `institution_id` int(10) UNSIGNED DEFAULT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `users_email_unique` (`email`),
     KEY `institution_fk_538818` (`institution_id`)
-    ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `users`
@@ -580,7 +574,8 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
                                                                                                                                                                (2, 'Institution', 'institution@institution.com', NULL, '$2y$10$xrsPLYaYoSrvak108tqKouwl9I/3VZMJ5h/I96pOCqwg.c0Dl4ILy', NULL, NULL, '2024-08-23 22:14:40', NULL, 1),
                                                                                                                                                                (3, 'student', 'student@gmail.com', NULL, '$2y$10$bRWQbSccJwdLeK.zqXUrI.2oKogqUHNnegatIFd5L/msrS7cj.9g.', NULL, '2024-08-23 22:47:53', '2024-08-23 22:47:53', NULL, NULL),
                                                                                                                                                                (4, 'loay', 'louay@gmail.com', NULL, '$2y$10$vGO4ppzsFQEpfMt9FQhAyefBjMosdgqjx0nOV/q4jZgCcsdXPNCMe', NULL, '2024-08-28 16:47:21', '2024-08-28 16:47:21', NULL, NULL),
-                                                                                                                                                               (5, 'hazem', 'hazemgdaraa@gmail.com', NULL, '$2y$10$r72rJxHdI19U5lcemRXbQuGK/to159FHY8njqqYIV9Fiy/CwwhdGa', NULL, '2024-08-28 17:03:52', '2024-08-28 17:03:52', NULL, NULL);
+                                                                                                                                                               (5, 'hazem', 'hazemgdaraa@gmail.com', NULL, '$2y$10$r72rJxHdI19U5lcemRXbQuGK/to159FHY8njqqYIV9Fiy/CwwhdGa', NULL, '2024-08-28 17:03:52', '2024-08-28 17:03:52', NULL, NULL),
+                                                                                                                                                               (6, 'test', 'test@gmail.com', NULL, '$2y$10$dkv63jlA68nfsYXn.fJTnOLwkuIDKhWSQuSwmHBy/c4drJVaU7/cy', NULL, '2024-09-10 12:47:41', '2024-09-10 12:47:41', NULL, NULL);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -23,10 +23,6 @@ class StoreCourseRequest extends FormRequest
                 'required',
                 'unique:courses',
             ],
-            'institution_id' => [
-                'required',
-                'integer',
-            ],
             'disciplines.*'  => [
                 'integer',
             ],

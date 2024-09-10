@@ -23,10 +23,6 @@ class UpdateCourseRequest extends FormRequest
                 'required',
                 'unique:courses,name,' . request()->route('course')->id,
             ],
-            'institution_id' => [
-                'required',
-                'integer',
-            ],
             'disciplines.*'  => [
                 'integer',
             ],

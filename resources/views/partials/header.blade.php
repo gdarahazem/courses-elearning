@@ -9,7 +9,7 @@
                     </a>
                     <a class="navbar-brand logo_2" href="{{ route('home') }}"> <img
                             src="{{ asset('img/single_page_logo.png') }}" alt="logo">
-                        <span class="navbar-text">e-learning</span> <!-- Add this line -->
+                        <span class="navbar-text" style="color: #0c2e60;">e-learning</span> <!-- Add this line -->
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -40,20 +40,20 @@
                                     </div>
                                 </li>
                             @endif
-                            @if($menuInstitutions->count())
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Institutions
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        @foreach($menuInstitutions as $id=>$institution)
-                                            <a class="dropdown-item"
-                                               href="{{ route('courses.index') }}?institution={{ $id }}">{{ $institution }}</a>
-                                        @endforeach
-                                    </div>
-                                </li>
-                            @endif
+{{--                            @if($menuInstitutions->count())--}}
+{{--                                <li class="nav-item dropdown">--}}
+{{--                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"--}}
+{{--                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+{{--                                        Institutions--}}
+{{--                                    </a>--}}
+{{--                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">--}}
+{{--                                        @foreach($menuInstitutions as $id=>$institution)--}}
+{{--                                            <a class="dropdown-item"--}}
+{{--                                               href="{{ route('courses.index') }}?institution={{ $id }}">{{ $institution }}</a>--}}
+{{--                                        @endforeach--}}
+{{--                                    </div>--}}
+{{--                                </li>--}}
+{{--                            @endif--}}
                             @auth
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('enroll.myCourses') }}">My Courses</a>

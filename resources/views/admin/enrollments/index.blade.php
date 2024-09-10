@@ -32,6 +32,9 @@
                             {{ trans('cruds.enrollment.fields.course') }}
                         </th>
                         <th>
+                            Payment Reference
+                        </th>
+                        <th>
                             {{ trans('cruds.enrollment.fields.status') }}
                         </th>
                         <th>
@@ -53,6 +56,9 @@
                             </td>
                             <td>
                                 {{ $enrollment->course->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $enrollment->payment_reference ?? '' }}
                             </td>
                             <td>
                                 {{ App\Enrollment::STATUS_RADIO[$enrollment->status] ?? '' }}

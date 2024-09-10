@@ -1,7 +1,53 @@
 @extends('layouts.main')
 
 @section('content')
-    <section class="special_cource padding_top">
+    <style>
+        .single_special_cource {
+            border: 1px solid #ddd; /* Add a subtle border */
+            border-radius: 10px; /* Rounded corners */
+            overflow: hidden; /* Ensures content doesn't overflow the border */
+            transition: box-shadow 0.3s ease; /* Smooth transition for the hover effect */
+        }
+
+        .single_special_cource:hover {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Box shadow on hover */
+        }
+
+        .special_img {
+            border-bottom: 1px solid #ddd; /* Border separating image from the text */
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px; /* Rounded top corners for the image */
+        }
+
+        .special_cource_text {
+            padding: 20px;
+        }
+
+        .special_cource_text h3 {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .special_cource_text h4 {
+            color: #5a67d8; /* Color for the price */
+            font-weight: bold;
+        }
+
+        .btn_4 {
+            background-color: #5a67d8;
+            color: white;
+            border-radius: 20px; /* Make buttons rounded */
+            padding: 5px 15px;
+            text-transform: capitalize;
+        }
+
+        .btn_4:hover {
+            background-color: #4c51bf;
+            color: white;
+        }
+    </style>
+
+    <section class="special_cource padding_top" style="margin-bottom: 50px;">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-xl-5">
@@ -24,53 +70,7 @@
                                 @endforeach
                                 <h4>{{ $course->getPrice() }}</h4>
                                 <a href="{{ route('courses.show', $course->id) }}"><h3>{{ $course->name }}</h3></a>
-                                <p>{{ Str::limit($course->description, 100) }}</p>
-                                @if($course->institution)
-                                    <div class="author_info">
-                                        <div class="author_img">
-                                            <img
-                                                src="{{ optional($course->institution->logo)->thumbnail ?? asset('img/no_image.png') }}"
-                                                alt="" class="rounded-circle">
-                                            <div class="author_info_text">
-                                                <p>Institution</p>
-                                                <h5>
-                                                    <a href="{{ route('courses.index') }}?institution={{ $course->institution->id }}">{{ $course->institution->name }}</a>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    </section>
-
-    <section class="blog_part section_padding">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xl-5">
-                    <div class="section_tittle text-center">
-                        <p>Institutions</p>
-                        <h2>Random Institutions</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                @foreach($randomInstitutions as $institution)
-                    <div class="col-sm-6 col-lg-4 col-xl-4">
-                        <div class="single-home-blog">
-                            <div class="card">
-                                <img src="{{ optional($institution->logo)->url ?? asset('img/no_image.png') }}"
-                                     class="card-img-top" alt="{{ $institution->name }}">
-                                <div class="card-body">
-                                    <a href="{{ route('courses.index') }}?institution={{ $institution->id }}">
-                                        <h5 class="card-title">{{ $institution->name }}</h5>
-                                    </a>
-                                    <p>{{ Str::limit($institution->description, 100) }}</p>
-                                </div>
+                                <p style="height: 50px;">{{ Str::limit($course->description, 100) }}</p>
                             </div>
                         </div>
                     </div>

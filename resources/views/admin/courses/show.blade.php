@@ -46,20 +46,20 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.course.fields.institution') }}
-                        </th>
-                        <td>
-                            {{ $course->institution->name ?? '' }}
-                        </td>
-                    </tr>
+{{--                    <tr>--}}
+{{--                        <th>--}}
+{{--                            {{ trans('cruds.course.fields.institution') }}--}}
+{{--                        </th>--}}
+{{--                        <td>--}}
+{{--                            {{ $course->institution->name ?? '' }}--}}
+{{--                        </td>--}}
+{{--                    </tr>--}}
                     <tr>
                         <th>
                             {{ trans('cruds.course.fields.price') }}
                         </th>
                         <td>
-                            ${{ $course->price }}
+                            {{ $course->price ? $course->price . ' TND' : '' }}
                         </td>
                     </tr>
                     <tr>
