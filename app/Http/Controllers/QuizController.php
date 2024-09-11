@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Course;
+use App\Mail\QuizResultMail;
 use App\Quiz;
 use App\Submission;
 use App\SubmissionAnswer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class QuizController extends Controller
 {
@@ -22,28 +24,24 @@ class QuizController extends Controller
 
     public function submit(Request $request, Quiz $quiz)
     {
-        $user = auth()->user(); // Get the authenticated user
-        $totalPoints = 0; // Variable to store total points
-        $questions = $quiz->questions; // Retrieve all questions for the quiz
+        $user = auth()->user();
+        $totalPoints = 0;
+        $questions = $quiz->questions;
 
-        // Create a new submission record
         $submission = Submission::create([
             'user_id' => $user->id,
             'quiz_id' => $quiz->id,
-            'score' => 0 // Temporary, will be updated after calculating the score
+            'score' => 0
         ]);
 
         foreach ($questions as $question) {
-            $correctAnswer = $question->answers()->where('is_correct', 1)->first(); // Get the correct answer for the question
+            $correctAnswer = $question->answers()->where('is_correct', 1)->first();
+            $userAnswerId = $request->input("answers.{$question->id}");
 
-            $userAnswerId = $request->input("answers.{$question->id}"); // Get the answer the user submitted
-
-            // Check if the user's answer is correct
             if ($userAnswerId == $correctAnswer->id) {
-                $totalPoints++; // Increment total points if the answer is correct
+                $totalPoints++;
             }
 
-            // Save the user's answer in the submission_answers table
             SubmissionAnswer::create([
                 'submission_id' => $submission->id,
                 'question_id' => $question->id,
@@ -51,16 +49,16 @@ class QuizController extends Controller
             ]);
         }
 
-        // Update the submission with the calculated score
         $submission->update([
             'score' => $totalPoints
         ]);
 
-        // Redirect back with the result
+        // Send email to the user with the result
+        Mail::to($user->email)->send(new QuizResultMail($quiz, $submission));
+
         return redirect()->route('quizzes.result', ['quiz' => $quiz->id, 'submission' => $submission->id])
             ->with('success', "You scored $totalPoints out of " . count($questions));
     }
-
 
     public function showResult(Quiz $quiz, Submission $submission)
     {

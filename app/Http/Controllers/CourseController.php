@@ -24,6 +24,7 @@ class CourseController extends Controller
         $enrollmentStatus = null; // Initialize the status as null
         $bookUrl = null;
         $hasQuiz = false; // Initialize as false
+        $latestSubmission = null; // To store the latest submission
 
         if (auth()->check()) {
             $enrollment = auth()->user()->enrollments()
@@ -40,10 +41,16 @@ class CourseController extends Controller
                 // Check if the course has a quiz
                 if ($course->quizzes()->exists()) {
                     $hasQuiz = true; // Set to true if there's a quiz for the course
+
+                    // Check if the user has any submissions for the quiz
+                    $latestSubmission = auth()->user()->submissions()
+                        ->where('quiz_id', $course->quizzes()->first()->id) // Assuming one quiz per course
+                        ->latest() // Get the latest submission
+                        ->first();
                 }
             }
         }
 
-        return view('courses.show', compact('course', 'breadcrumb', 'bookUrl', 'enrollmentStatus', 'hasQuiz'));
+        return view('courses.show', compact('course', 'breadcrumb', 'bookUrl', 'enrollmentStatus', 'hasQuiz', 'latestSubmission'));
     }
 }
